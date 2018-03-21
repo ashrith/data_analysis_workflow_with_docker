@@ -11,6 +11,7 @@ ENV LANG            en_US.UTF-8
 ENV LC_ALL          en_US.UTF-8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	pandoc \
 	r-base vim texlive python binutils gfortran \
 	libpcre3 libpcre3-dev lzma liblzma-dev libbz2-dev \
 	libcurl4-openssl-dev libssl-dev libxml2-dev \
@@ -31,9 +32,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	q()" > ~/install.R && \
 	cat ~/install.R && \
 	R --no-save -e "source(\"~/install.R\")"
-#echo "options(unzip=\"unzip\",digits = 5, scipen = 16, repos=\"http://cran.cnr.berkeley.edu/\") \\n \
-#pkglist <- c(\"rJava\",\"lattice\",\"data.table\",\"rmarkdown\",\"h2o\",\"sparklyr\",\"plotly\",\"tidyverse\") \\n \
-#Exposing port number 8787 incase you would like to connect thru rstudio
-#EXPOSE 8787
 
+
+# Things to do
+# 1. Clean up the code
+# 2. Add Comments
+# 3. Break docker RUN into permanent and dynamic runs, so to keep layers clean.
 
