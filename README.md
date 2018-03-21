@@ -9,3 +9,4 @@
 1. gfortran for: tidyverse, plotly, sparklyr
 2. libcurl, libssl, libxml2 for a few R packages
 3. Java for: h2o
+4. rJava requires `libpcre3`, `libpcre3-dev`, `lzma`, `liblzma-dev`, `libbz2-dev`

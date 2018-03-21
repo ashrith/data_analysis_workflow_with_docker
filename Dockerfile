@@ -11,8 +11,10 @@ ENV LANG            en_US.UTF-8
 ENV LC_ALL          en_US.UTF-8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	r-base vim texlive python binutils \
+	r-base vim texlive python binutils gfortran \
+	libpcre3 libpcre3-dev lzma liblzma-dev libbz2-dev \
 	libcurl4-openssl-dev libssl-dev libxml2-dev \
+	gdebi-core \
 	python-doc python-tk python2.7-doc binfmt-support texlive-latex-extra  \
 	build-essential curl git htop man unzip wget locales locales-all && \
 	apt-get --purge remove openjdk* && \
@@ -22,9 +24,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	apt-get update && \
 	apt-get install -y oracle-java8-installer oracle-java8-set-default && \
 	apt-get clean all && \
-	R -e "options(unzip='unzip',digits = 5, scipen = 16, repos='http://cran.cnr.berkeley.edu/'); pkglist <- c('psych','broom','lattice','data.table','rmarkdown','sparklyr','h2o','plotly','tidyverse'); source('http://bioconductor.org/biocLite.R'); biocLite('hexbin');install.packages(pkglist);"
-
-
+	R CMD javareconf && \
+	echo "options(unzip=\"unzip\",digits = 5, scipen = 16, repos=\"http://cran.cnr.berkeley.edu/\")" > ~/.Rprofile && \
+	echo "pkglist <- c(\"rJava\",\"lattice\",\"data.table\",\"rmarkdown\",\"h2o\",\"sparklyr\",\"plotly\",\"tidyverse\") \\n \
+	install.packages(pkglist) \\n \
+	q()" > ~/install.R && \
+	cat ~/install.R && \
+	R --no-save -e "source(\"~/install.R\")"
+#echo "options(unzip=\"unzip\",digits = 5, scipen = 16, repos=\"http://cran.cnr.berkeley.edu/\") \\n \
+#pkglist <- c(\"rJava\",\"lattice\",\"data.table\",\"rmarkdown\",\"h2o\",\"sparklyr\",\"plotly\",\"tidyverse\") \\n \
 #Exposing port number 8787 incase you would like to connect thru rstudio
 #EXPOSE 8787
 
