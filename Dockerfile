@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libpcre3 libpcre3-dev lzma liblzma-dev libbz2-dev \
 	libcurl4-openssl-dev libssl-dev libxml2-dev \
 	gdebi-core \
-	python-doc python-tk python2.7-doc binfmt-support texlive-latex-extra  \
+	python-doc python-tk python2.7-doc binfmt-support texlive-latex-extra python-pip \
 	build-essential curl git htop man unzip wget locales locales-all 
 RUN apt-get --purge remove openjdk* && \
 	echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections && \
